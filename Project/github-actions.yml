@@ -26,15 +26,15 @@ jobs:
       # TODO: Install dependencies
       - name: Install dependencies
         run: npm install
-        working-directory: ./frontend
+        working-directory: ./Project/frontend
       # TODO: Run tests
       - name: Run tests forntend
         run: npm test
-        working-directory: ./frontend
+        working-directory: ./Project/frontend
       # TODO: Build the React app
       - name: build frontend
         run: npm run build
-        working-directory: ./frontend
+        working-directory: ./Project/frontend
 
   # TODO: Define a job for building and testing the backend
   backend:
@@ -56,7 +56,7 @@ jobs:
       # TODO: Run tests
       - name: Run backend test
         run: python -m unittest discover
-        working-directory: ./backend
+        working-directory: ./Project/backend
 
   # TODO: Define a job for building and pushing Docker images
   docker:
@@ -84,7 +84,7 @@ jobs:
         if: github.ref_name == 'main'
         uses: docker/build-push-action@v4
         with: 
-          context: ./frontend
+          context: ./Project/frontend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/react-frontend:latest
       # TODO: Build backend Docker image
@@ -92,7 +92,7 @@ jobs:
         if: github.ref_name == 'main'
         uses: docker/build-push-action@v4
         with:
-          context: ./backend
+          context: ./Project/backend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/flask-backend:latest
       # TODO: Push images to Docker Hub (if on main branch)
